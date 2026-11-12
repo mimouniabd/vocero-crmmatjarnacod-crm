@@ -46,8 +46,7 @@ export default function RegisterPage() {
       <CardHeader>
         <CardTitle>إنشاء حساب</CardTitle>
         <CardDescription>
-          El primer registro crea la organización de esta instancia y queda
-          como propietario.
+          أنشئ حسابك لبدء استخدام منصة MatjarnaCOD CRM.
         </CardDescription>
       </CardHeader>
       <CardContent>
