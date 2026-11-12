@@ -33,7 +33,7 @@ export function SettingsNav({
   return (
     <nav
       aria-label="الإعدادات"
-      className="flex shrink-0 gap-4 overflow-x-auto border-b px-2 py-2 sm:w-48 sm:flex-col sm:gap-5 sm:overflow-visible sm:border-b-0 sm:border-r sm:p-3"
+      className="flex shrink-0 gap-4 overflow-x-auto border-b px-2 py-2 sm:w-48 sm:flex-col sm:gap-5 sm:overflow-visible sm:border-b-0 sm:border-l sm:p-3"
     >
       {sections.map((section) => (
         <div
