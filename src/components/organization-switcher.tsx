@@ -52,7 +52,7 @@ export function OrganizationSwitcher({ compact = false }: { compact?: boolean })
       <select
         id="active-workspace"
         aria-label="تبديل مساحة العمل"
-        value={activeId}
+        value={activeId || list[0]?.id || ""}
         disabled={changing || list.length < 2}
         onChange={(event) => void changeOrganization(event.target.value)}
         className="h-9 w-full rounded-lg border border-border bg-background px-2 text-[13px] font-medium text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-70"
