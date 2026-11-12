@@ -94,7 +94,7 @@ export function WhatsappWizard() {
               conexión para reconectar.
             </p>
           </div>
-          <قطع الاتصال
+          <Desconectar
             onHecho={() => {
               setRegistration(null);
               void refetch();
@@ -116,7 +116,7 @@ export function WhatsappWizard() {
             </p>
           </div>
           <Badge variant="success">متصل</Badge>
-          <قطع الاتصال
+          <Desconectar
             onHecho={() => {
               setRegistration(null);
               void refetch();
@@ -173,7 +173,7 @@ export function WhatsappWizard() {
  * instante — no es un ajuste, es apagar el canal. Lo que NO hace es borrar la
  * bandeja, y el aviso lo dice: sin eso, nadie se atreve a tocarlo.
  */
-function قطع الاتصال({ onHecho }: { onHecho: () => void }) {
+function Desconectar({ onHecho }: { onHecho: () => void }) {
   const [confirmando, setConfirmando] = useState(false);
   const [yendo, setYendo] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -513,8 +513,7 @@ function RegistrationNotice({
           </>
         ) : (
           <>
-            {afterSave ? "تم حفظ الاتصال، لكن" : "No"} pudimos
-            registrar el webhook en Meta. {registration.message} أعد المحاولة باستخدام
+            {afterSave ? "تم حفظ الاتصال، لكن تعذر" : "تعذر"} تسجيل Webhook لدى Meta. {registration.message} أعد المحاولة باستخدام
             «التسجيل لدى Meta» أو أدخل الرابط ورمز التحقق يدوياً.
           </>
         )}
@@ -574,7 +573,7 @@ function WebhookCard({
     if (recuperar) {
       const host = registration?.ok && "skipped" in registration ? registration.host : "otro servicio";
       const ok = window.confirm(
-        `استعادة Webhook: los mensajes de tu número dejarán de llegar a ${host} y llegarán a este CRM, que se los despacha a tu agente. ¿Continuar?`
+        `استعادة Webhook: ستتوقف رسائل رقمك عن الوصول إلى ${host} وستصل إلى هذا النظام ليحوّلها إلى مساعدك. هل تريد المتابعة؟`
       );
       if (!ok) return;
     }
