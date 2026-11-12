@@ -15,7 +15,7 @@
 ## Phase 2: Foundational authorization
 
 - [ ] T006 Define a canonical server-side tenant context in `src/lib/auth/` or `src/lib/api/`.
-- [ ] T007 Replace first-membership selection in `src/server/auth/on-signup.ts` with explicit validated active-membership resolution.
+- [x] T007 Replace first-membership selection in `src/server/auth/on-signup.ts` with explicit validated active-membership resolution (server-side membership validation is in place; workspace-switch endpoint remains separate).
 - [ ] T008 Add an authenticated workspace-selection endpoint under `src/app/api/`.
 - [ ] T009 Add unit tests proving a user cannot activate an organization without membership in `tests/unit/`.
 - [ ] T010 Add tests for revoked/deleted active memberships in `tests/unit/`.
@@ -27,10 +27,10 @@
 - [ ] T013 Add schema for provisioning requests and audit events in `src/lib/db/schema.ts`.
 - [ ] T014 Generate and review additive migration using `pnpm db:generate` and `drizzle/`.
 - [ ] T015 Implement transactional tenant provisioning service in `src/server/auth/`.
-- [ ] T016 Refactor `src/server/auth/on-signup.ts` to call the provisioning service without the global first-organization count gate.
+- [x] T016 Remove the global first-organization count gate from `src/server/auth/on-signup.ts`; each public signup now attempts to provision its own tenant. The dedicated provisioning service and failure recovery remain outstanding.
 - [ ] T017 Update `src/server/auth/registration.ts` and `src/lib/auth/index.ts` so signup policy cannot bypass provisioning or abuse controls.
 - [ ] T018 Update registration UI copy in `src/app/(auth)/register/page.tsx` for direct SaaS signup when platform policy permits.
-- [ ] T019 Add concurrency, retry, partial-failure, and no-duplicate provisioning tests in `tests/unit/` and `tests/e2e/`.
+- [ ] T019 Add concurrency, retry, partial-failure, and no-duplicate provisioning tests in `tests/unit/` and `tests/e2e/` (initial unit coverage added in `tests/unit/on-signup.test.ts`; full concurrency/E2E coverage and execution remain outstanding).
 
 ## Phase 4: Tenant data integrity
 
