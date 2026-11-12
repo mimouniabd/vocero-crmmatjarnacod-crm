@@ -63,7 +63,7 @@ function InboxEmptyState({
       icon={Inbox}
       className="h-full"
       title="لا توجد محادثات بعد"
-      description={"عندما يراسلك أحد على رقم واتساب، ستظهر محادثته هنا بشكل فوري."}
+      description={emptyInboxDescription(channels.map((ch) => CHANNEL_LABEL[ch]))}
       action={
         !failed && (
           <Button
