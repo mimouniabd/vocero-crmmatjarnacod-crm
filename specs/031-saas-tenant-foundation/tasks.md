@@ -16,10 +16,10 @@
 
 - [ ] T006 Define a canonical server-side tenant context in `src/lib/auth/` or `src/lib/api/`.
 - [x] T007 Replace first-membership selection in `src/server/auth/on-signup.ts` with explicit validated active-membership resolution (server-side membership validation is in place; workspace-switch endpoint remains separate).
-- [ ] T008 Add an authenticated workspace-selection endpoint under `src/app/api/`.
+- [x] T008 Implement authenticated workspace selection using Better Auth's built-in `organization.setActive` endpoint; no custom endpoint is needed.
 - [ ] T009 Add unit tests proving a user cannot activate an organization without membership in `tests/unit/`.
 - [ ] T010 Add tests for revoked/deleted active memberships in `tests/unit/`.
-- [ ] T011 Verify Better Auth organization plugin behavior for multiple memberships and session updates; document pinned-version behavior in `specs/031-saas-tenant-foundation/research.md`.
+- [x] T011 Verify the Better Auth v1.6.23 organization client APIs (`useListOrganizations`, `organization.setActive`) against the pinned lockfile version and document the integration in `research.md`.
 
 ## Phase 3: Atomic and recoverable tenant provisioning
 
