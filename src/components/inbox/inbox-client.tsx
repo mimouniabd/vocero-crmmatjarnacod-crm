@@ -562,7 +562,7 @@ export function InboxClient({
         ) : (
           <div className="thread-bg flex flex-1 flex-col items-center justify-center gap-2 bg-chat px-6 text-center lg:tarjeta">
             <p className="font-serif text-[24px] italic leading-tight text-text-2">
-              Elige una conversación para ver el hilo
+              اختر محادثة لعرض الرسائل
             </p>
             <p className="kicker">صندوق الوارد · تحديث فوري</p>
           </div>
