@@ -233,9 +233,9 @@ export function AppNav({
         setSonido(v);
         guardarSonido(v);
       }}
-      aria-label={sonido ? "Sonido de mensajes: activado" : "Sonido de mensajes: silenciado"}
+      aria-label={sonido ? "صوت الرسائل: مفعّل" : "صوت الرسائل: مكتوم"}
       aria-pressed={sonido}
-      title={sonido ? "Silenciar el sonido de mensajes nuevos" : "Activar el sonido de mensajes nuevos"}
+      title={sonido ? "كتم صوت الرسائل الجديدة" : "تفعيل صوت الرسائل الجديدة"}
       className="rounded p-1 text-text-3 transition-colors hover:text-foreground"
     >
       {sonido ? (
@@ -286,8 +286,8 @@ export function AppNav({
         // `.nav-dark` — y un texto oscuro sobre este fondo oscuro se pierde.
         // 061 — Solo el teléfono: en escritorio el menú es el riel de iconos
         // (abajo). Ya no lleva la barra azul marino: los neutros del tema.
-        "fixed inset-y-0 left-0 z-50 flex w-[17rem] shrink-0 flex-col overflow-y-auto rounded-r-[var(--radio-tarjeta)] bg-background px-3 pb-3.5 pt-4 text-foreground transition-[transform,visibility] duration-200 lg:hidden",
-        open ? "visible translate-x-0 shadow-pop" : "invisible -translate-x-full"
+        "fixed inset-y-0 right-0 z-50 flex w-[17rem] shrink-0 flex-col overflow-y-auto rounded-l-[var(--radio-tarjeta)] bg-background px-3 pb-3.5 pt-4 text-foreground transition-[transform,visibility] duration-200 lg:hidden",
+        open ? "visible translate-x-0 shadow-pop" : "invisible translate-x-full"
       )}
     >
       {/* Marca: el logo de Vocero o, white-label, la inicial y el nombre */}
@@ -296,7 +296,7 @@ export function AppNav({
             alcanzable con el pulgar. */}
         <button
           onClick={onClose}
-          aria-label="Cerrar el menú"
+          aria-label="إغلاق القائمة"
           className="-ml-1 mt-0.5 rounded-md p-1.5 text-text-3 hover:bg-accent hover:text-foreground lg:hidden"
         >
           <X className="h-[18px] w-[18px]" strokeWidth={1.8} />
@@ -311,7 +311,7 @@ export function AppNav({
       {/* Grupos con encabezado pequeño, sin letras ni colapsables: se leen
           de arriba abajo como una lista de lo que hay. Un grupo sin título
           (Resultados) es una entrada suelta separada por el espacio. */}
-      <nav className="flex flex-col gap-4" aria-label="Secciones">
+      <nav className="flex flex-col gap-4" aria-label="الأقسام">
         {groups.map((group, i) => (
           <div key={group.title ?? i} className="flex flex-col gap-0.5">
             {group.title && (
@@ -341,15 +341,15 @@ export function AppNav({
         <span className="min-w-0 flex-1">
           <span className="block truncate text-[13px] font-semibold">{userName}</span>
           <span className="block truncate text-[11px] text-text-3">
-            {role === "owner" ? "Propietario" : "Equipo"} · En línea
+            {role === "owner" ? "مالك الحساب" : "عضو الفريق"} · متصل
           </span>
         </span>
         <span className="flex shrink-0 items-center">
           {campana}
           <ThemeToggle initial={apariencia} />
           <button
-            aria-label="Cerrar sesión"
-            title="Cerrar sesión"
+            aria-label="تسجيل الخروج"
+            title="تسجيل الخروج"
             className="rounded p-1 text-text-3 hover:text-foreground"
             onClick={() => void salir()}
           >
