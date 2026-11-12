@@ -45,10 +45,9 @@ export type Branding = {
 };
 
 export const DEFAULT_BRANDING: Branding = {
-  name: "Vocero",
-  // El azul eléctrico de vocerocrm.com: la instancia recién instalada se ve
-  // igual que la landing. Una agencia lo cambia en Configuración → Marca.
-  accent: "#0d5bff",
+  name: "MatjarnaCOD CRM",
+  // Identidad inicial MatjarnaCOD.
+  accent: "#f97316",
   currency: DEFAULT_CURRENCY,
   favicon: null,
 };
@@ -59,6 +58,10 @@ export const DEFAULT_BRANDING: Branding = {
  * quien quiera un CRM más discreto.
  */
 export const ACCENT_PRESETS: Record<string, { label: string; set: AccentSet }> = {
+  "#f97316": {
+    label: "MatjarnaCOD",
+    set: { accent: "#f97316", hover: "#ea580c", soft: "#fed7aa", tint: "#fff7ed", text: "#9a3412", fg: "#111827" },
+  },
   "#0d5bff": {
     label: "Azul Vocero",
     set: { accent: "#0d5bff", hover: "#0a4de6", soft: "#d3e2ff", tint: "#ebf1ff", text: "#0038d8", fg: "#ffffff" },
