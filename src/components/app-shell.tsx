@@ -78,10 +78,10 @@ export function AppShell({
   return (
     // 061 · D1 — El marco: en escritorio la app son tarjetas separadas sobre
     // un fondo suave; en el teléfono la pantalla entera es la tarjeta.
-    <div className="app-marco app-escala flex overflow-hidden lg:gap-[var(--hueco)] lg:p-[var(--hueco)]">
+    <div lang="ar" dir="rtl" className="app-marco app-escala font-tajawal flex overflow-hidden lg:gap-[var(--hueco)] lg:p-[var(--hueco)]">
       {navOpen && (
         <button
-          aria-label="Cerrar el menú"
+          aria-label="إغلاق القائمة"
           tabIndex={-1}
           onClick={() => setNavOpen(false)}
           className="fixed inset-0 z-40 bg-overlay lg:hidden"
@@ -104,7 +104,7 @@ export function AppShell({
         <header className="flex h-12 shrink-0 items-center gap-1.5 border-b bg-background px-2 text-foreground lg:hidden">
           <button
             onClick={() => setNavOpen(true)}
-            aria-label="Abrir el menú"
+            aria-label="فتح القائمة"
             aria-expanded={navOpen}
             className="rounded-md p-2 text-text-2 hover:bg-accent hover:text-foreground"
           >
