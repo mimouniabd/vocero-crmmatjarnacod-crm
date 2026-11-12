@@ -21,3 +21,12 @@
 - Whether all child-to-parent relationships have tenant-aware composite constraints.
 - Exact Better Auth plugin semantics for multiple organizations, invitations, active-organization switching, and hook transaction boundaries in the pinned version.
 - Migration behavior against a representative database and production readiness.
+
+## Better Auth organization client verification (2026-11-12)
+
+- The lockfile resolves `better-auth` to version `1.6.23` (the package manifest allows compatible versions via `^1.1.14`).
+- The project already configures `organizationClient()` in `src/lib/auth/client.ts`.
+- The Better Auth v1.6 Organization documentation confirms `authClient.useListOrganizations()` for memberships and `authClient.organization.setActive({ organizationId })` for changing the session's active organization.
+- The workspace selector uses these existing plugin APIs. The server still validates the selected organization against the user's current membership in `requireSession()`.
+- The app refreshes the server-rendered route after a successful selection so tenant-scoped server components reload under the newly active organization.
+- Remaining verification: run TypeScript, lint, unit tests and build against the actual lockfile installation; add a live multi-organization session-switch test and a negative non-member selection test.
