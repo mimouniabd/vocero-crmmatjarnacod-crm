@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { newId } from "@/lib/db/ids";
 
@@ -24,6 +24,18 @@ export async function onUserCreated(
   if (!createOrganization) return;
   const db = getDb();
   await db.transaction(async (tx) => {
+    // Serialize retries for this identity. A repeated post-create hook must
+    // not create a second workspace for the same user.
+    await tx.execute(
+      sql`select pg_advisory_xact_lock(hashtext(${userId}))`
+    );
+    const existingMembership = await tx
+      .select({ id: schema.member.id })
+      .from(schema.member)
+      .where(eq(schema.member.userId, userId))
+      .limit(1);
+    if (existingMembership.length > 0) return;
+
     const orgId = newId("organization");
     await tx.insert(schema.organization).values({
       id: orgId,
