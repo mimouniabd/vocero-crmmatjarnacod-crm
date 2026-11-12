@@ -19,10 +19,10 @@ vi.mock("drizzle-orm", () => ({
 
 vi.mock("@/lib/db", () => {
   const schema = {
-    organization: { id: "organization" },
-    member: { id: "member", userId: "member.userId", organizationId: "member.organizationId" },
-    pipelineStage: { id: "pipelineStage" },
-    agentProfile: { id: "agentProfile" },
+    organization: { name: "organization", id: "organization.id" },
+    member: { name: "member", id: "member.id", userId: "member.userId", organizationId: "member.organizationId" },
+    pipelineStage: { name: "pipelineStage", id: "pipelineStage.id" },
+    agentProfile: { name: "agentProfile", id: "agentProfile.id" },
   };
   const tx = {
     execute: async () => { state.executeCalls += 1; },
@@ -33,8 +33,8 @@ vi.mock("@/lib/db", () => {
         }),
       }),
     }),
-    insert: (table: unknown) => ({
-      values: async (values: unknown) => { state.inserted.push({ table, values }); },
+    insert: (table: { name: string }) => ({
+      values: async (values: unknown) => { state.inserted.push({ table: table.name, values }); },
     }),
   };
   return {
