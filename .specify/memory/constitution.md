@@ -1,7 +1,7 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Versión: 1.3.0 → 1.4.0
+Versión: 1.4.0 → 1.5.0
 
 Cambios:
   - Principio II "Soberanía / Self-Hosted" → EXPANDIDO: la lista cerrada de
@@ -334,7 +334,7 @@ práctica, convención o preferencia; ante un conflicto, gana la constitución.
 - **Propagación**: al enmendar la constitución se revisan y, si procede, se actualizan
   las plantillas dependientes (plan, spec, tasks).
 
-**Version**: 1.4.0 | **Ratified**: 2026-07-09 | **Last Amended**: 2026-08-26
+**Version**: 1.5.0 | **Ratified**: 2026-07-09 | **Last Amended**: 2026-11-12
 
 ---
 
