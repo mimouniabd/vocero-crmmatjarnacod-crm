@@ -12,9 +12,9 @@ export default function SettingsLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="flex h-full flex-col">
+    <div lang="ar" dir="rtl" className="flex h-full flex-col font-tajawal">
       <header className="border-b px-4 py-3 sm:px-6 sm:py-4">
-        <h2 className="text-[17px] font-bold tracking-tight">Configuración</h2>
+        <h2 className="text-[17px] font-bold tracking-tight">الإعدادات</h2>
       </header>
       {/* En móvil las pestañas van arriba (en fila), no como columna lateral. */}
       <div className="flex min-h-0 flex-1 flex-col sm:flex-row">

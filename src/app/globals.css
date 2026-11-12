@@ -19,7 +19,7 @@
 
     /* 061 — La familia de la interfaz (ver layout.tsx). 062 la cambia con
        data-letra. */
-    --font-sans: var(--font-urbanist), var(--font-archivo);
+    --font-sans: "Tajawal", var(--font-urbanist), var(--font-archivo);
     /* 062 — Tamaño (zoom de la app) y densidad (filas y espacio entre
        tarjetas). Los cambia Ajustes → Apariencia con data-tamano y
        data-densidad. */
@@ -510,3 +510,6 @@
     height: calc(100dvh / var(--escala));
   }
 }
+
+/* MatjarnaCOD Arabic authentication surfaces */
+.font-tajawal { font-family: "Tajawal", var(--font-urbanist), sans-serif; }

@@ -7,12 +7,12 @@ export function formatTime(iso: string | null): string {
   const now = new Date();
   const sameDay = d.toDateString() === now.toDateString();
   if (sameDay) {
-    return d.toLocaleTimeString("es-MX", {
+    return d.toLocaleTimeString("ar-MA", {
       hour: "2-digit",
       minute: "2-digit",
     });
   }
-  return d.toLocaleDateString("es-MX", { day: "numeric", month: "short" });
+  return d.toLocaleDateString("ar-MA", { day: "numeric", month: "short" });
 }
 
 /** 024 — Lo mismo, para plazos de días: «5 días», «1 día 3h», «7h 20m». */
@@ -60,15 +60,15 @@ export function formatBytes(bytes: number): string {
  */
 export function channelList(labels: readonly string[]): string {
   if (labels.length <= 1) return labels[0] ?? "";
-  return `${labels.slice(0, -1).join(", ")} o ${labels[labels.length - 1]}`;
+  return `${labels.slice(0, -1).join("، ")} أو ${labels[labels.length - 1]}`;
 }
 
 /** 028 — El texto de la bandeja vacía, con los canales encendidos. */
 export function emptyInboxDescription(labels: readonly string[]): string {
   if (labels.length <= 1) {
-    return "Cuando alguien escriba a tu número de WhatsApp, su conversación aparecerá aquí en tiempo real.";
+    return "عندما يراسلك أحد على رقم واتساب، ستظهر محادثته هنا بشكل فوري.";
   }
-  return `Cuando alguien te escriba por ${channelList(labels)}, su conversación aparecerá aquí en tiempo real.`;
+  return `عندما تصلك رسالة عبر ${channelList(labels)}، ستظهر المحادثة هنا بشكل فوري.`;
 }
 
 export function previewText(preview: string | null): string {

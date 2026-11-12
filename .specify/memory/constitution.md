@@ -1,7 +1,7 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Versión: 1.3.0 → 1.4.0
+Versión: 1.4.0 → 1.5.0
 
 Cambios:
   - Principio II "Soberanía / Self-Hosted" → EXPANDIDO: la lista cerrada de
@@ -334,4 +334,50 @@ práctica, convención o preferencia; ante un conflicto, gana la constitución.
 - **Propagación**: al enmendar la constitución se revisan y, si procede, se actualizan
   las plantillas dependientes (plan, spec, tasks).
 
-**Version**: 1.4.0 | **Ratified**: 2026-07-09 | **Last Amended**: 2026-08-26
+**Version**: 1.5.0 | **Ratified**: 2026-07-09 | **Last Amended**: 2026-11-12
+
+---
+
+## Enmienda SaaS — MatjarnaCOD CRM (v1.5.0)
+
+**Fecha:** 2026-11-12  
+**Estado:** Aprobada por el responsable del producto para esta distribución derivada.
+
+Esta enmienda adapta la constitución de Vocero CRM a la distribución comercial **MatjarnaCOD CRM**. En caso de contradicción, esta enmienda prevalece sobre las frases anteriores que describen el producto como una instancia para un solo negocio, excluyen billing/multi-instancia o limitan el producto a una única organización.
+
+### Alcance y modelo de servicio
+
+- MatjarnaCOD CRM es un producto SaaS multi-tenant operado como servicio centralizado, con posibilidad de ofrecer despliegues privados en el futuro sin convertirlos en requisito del producto.
+- Se admiten dos vías de acceso: (1) usuarios de MatjarnaCOD que acceden mediante integración autenticada/SSO; y (2) clientes externos que se registran y contratan una suscripción independiente, sin necesitar una cuenta de MatjarnaCOD.
+- Cada organización/tenant mantiene aislamiento estricto de usuarios, contactos, conversaciones, mensajes, archivos, integraciones, configuración, consumo y facturación.
+- Los usuarios de MatjarnaCOD no obtienen acceso implícito a datos de otros tenants. La vinculación de una cuenta de marketplace a una organización CRM debe ser explícita, verificable y revocable.
+- El CRM conserva su núcleo funcional derivado de Vocero. La capa SaaS añade gestión de tenants, planes, suscripciones, derechos de uso (entitlements), límites, medición de consumo y administración global.
+
+### Arquitectura e integración
+
+- La base de datos del CRM es independiente de la base de datos WordPress/MatjarnaCOD.
+- La integración con MatjarnaCOD se implementa mediante un conector WordPress independiente y contratos API/Webhooks autenticados; queda prohibido acoplar ambos sistemas mediante consultas directas o tablas compartidas.
+- La interfaz puede integrarse visualmente con MatjarnaCOD, pero el CRM debe poder autenticar y servir a clientes externos de forma autónoma.
+- La resolución del tenant se realiza en el servidor a partir de una sesión/token validado; nunca se confía en un organization_id enviado libremente por el navegador.
+- Las operaciones de administración global y soporte deben estar separadas de los roles de cada tenant y dejar auditoría.
+
+### Suscripciones, pagos y límites
+
+- Billing y planes pasan a formar parte del alcance del producto SaaS. El proveedor de pagos se integra mediante un adaptador reemplazable; ningún proveedor debe quedar acoplado al dominio.
+- Los permisos y límites se aplican en backend mediante entitlements, no solo ocultando elementos de interfaz.
+- Los cambios de plan, pagos, renovaciones, cancelaciones y webhooks deben ser idempotentes y auditables.
+- La falta de pago o el fin de una suscripción debe aplicar una política explícita de gracia, restricción y recuperación, sin borrar datos del cliente automáticamente.
+
+### Puertas de calidad obligatorias
+
+- Antes de habilitar producción multi-tenant, se debe auditar cada endpoint, consulta, tarea en segundo plano, webhook, almacenamiento de archivos, búsqueda y caché para demostrar aislamiento entre tenants.
+- Deben existir pruebas automatizadas de acceso cruzado (tenant A intentando leer/modificar recursos de tenant B), بما فيها حالات الإدارة والمهام الخلفية.
+- La migración del modelo de organización única al SaaS multi-tenant se planifica y verifica antes de activar el registro público.
+- No se considera listo para producción hasta verificar registro externo, acceso SSO de MatjarnaCOD, aislamiento, límites de plan, ciclo de suscripción y recuperación ante fallos del proveedor de pagos.
+
+**Impact report:**  
+- Principio II: se reemplaza la premisa de despliegue exclusivamente self-hosted por un servicio SaaS centralizado; los proveedores externos se aíslan mediante adaptadores.
+- Principio III: se mantiene y refuerza el aislamiento multi-tenant como requisito efectivo de producción.
+- Principio VIII: se amplía el alcance de una instancia/un negocio a una plataforma CRM SaaS multi-tenant.
+- Gobernanza: esta enmienda es específica de la distribución MatjarnaCOD CRM y no modifica el repositorio upstream.
+- Versión constitucional: 1.4.0 → 1.5.0 (MINOR por expansión material del alcance).

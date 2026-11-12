@@ -1,4 +1,4 @@
-import { count, eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { getDb, schema } from "@/lib/db";
 import { newId } from "@/lib/db/ids";
 
@@ -12,29 +12,35 @@ const SEED_STAGES: { name: string; kind: "open" | "won" | "lost" }[] = [
 ];
 
 /**
- * Primer registro de la instancia: crea la organización, deja al usuario como
- * propietario y siembra pipeline + perfil del agente.
- *
- * Solo actúa si NO existe ninguna organización (las cuentas de equipo las crea
- * el propietario y reciben su membresía explícita). Un advisory lock evita que
- * dos registros simultáneos en instancia vacía creen dos organizaciones.
+ * Crea un espacio de trabajo independiente para cada registro público.
+ * Las altas internas de miembros del equipo pasan createOrganization=false:
+ * su membresía se añade explícitamente a la organización de quien los invitó.
  */
-export async function onUserCreated(userId: string, userName: string) {
+export async function onUserCreated(
+  userId: string,
+  userName: string,
+  createOrganization = true
+) {
+  if (!createOrganization) return;
   const db = getDb();
   await db.transaction(async (tx) => {
-    // Lock transaccional de "primer arranque" (clave arbitraria fija):
-    // dos registros simultáneos en instancia vacía → solo uno crea la org.
-    await tx.execute(sql`select pg_advisory_xact_lock(874201)`);
-    const [orgs] = await tx
-      .select({ n: count() })
-      .from(schema.organization);
-    if ((orgs?.n ?? 0) > 0) return;
+    // Serialize retries for this identity. A repeated post-create hook must
+    // not create a second workspace for the same user.
+    await tx.execute(
+      sql`select pg_advisory_xact_lock(hashtext(${userId}))`
+    );
+    const existingMembership = await tx
+      .select({ id: schema.member.id })
+      .from(schema.member)
+      .where(eq(schema.member.userId, userId))
+      .limit(1);
+    if (existingMembership.length > 0) return;
 
     const orgId = newId("organization");
     await tx.insert(schema.organization).values({
       id: orgId,
       name: userName ? `Negocio de ${userName}` : "Mi negocio",
-      slug: "principal",
+      slug: orgId,
     });
     await tx.insert(schema.member).values({
       id: newId("member"),
@@ -66,7 +72,8 @@ export async function resolveActiveOrganizationId(
 }
 
 export async function resolveMembership(
-  userId: string
+  userId: string,
+  organizationId?: string | null
 ): Promise<{ organizationId: string; role: string } | null> {
   const db = getDb();
   const rows = await db
@@ -75,7 +82,14 @@ export async function resolveMembership(
       role: schema.member.role,
     })
     .from(schema.member)
-    .where(eq(schema.member.userId, userId))
+    .where(
+      organizationId
+        ? and(
+            eq(schema.member.userId, userId),
+            eq(schema.member.organizationId, organizationId)
+          )
+        : eq(schema.member.userId, userId)
+    )
     .limit(1);
   return rows[0] ?? null;
 }

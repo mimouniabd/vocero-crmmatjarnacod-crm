@@ -62,8 +62,8 @@ export function buildManifest(
     name: branding.name,
     short_name: shortAppName(branding.name),
     description,
-    lang: "es",
-    dir: "ltr",
+    lang: "ar",
+    dir: "rtl",
     // Quien abre la app instalada viene a contestar: directo a la Bandeja, no a
     // la guía de inicio (que sigue a un clic en el menú). `id` se queda en «/»
     // para que Chrome la reconozca como la misma app ya instalada.

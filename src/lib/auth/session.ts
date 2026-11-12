@@ -23,9 +23,15 @@ export async function requireSession(): Promise<SessionContext> {
   const auth = getAuth();
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) throw new UnauthorizedError();
-  // La sesión puede crearse antes de que la membresía exista (registro
-  // inicial) — la membresía en BD es la fuente de verdad de org + rol.
-  const membership = await resolveMembership(session.user.id);
+  // La organización activa de la sesión es una selección, no una autorización:
+  // siempre se contrasta con la membresía vigente en la base de datos.
+  // Si la sesión antigua no tiene organización activa, conservamos el
+  // comportamiento compatible de resolver la primera membresía.
+  const activeOrganizationId = session.session.activeOrganizationId ?? null;
+  const membership = await resolveMembership(
+    session.user.id,
+    activeOrganizationId
+  );
   if (!membership) {
     throw new UnauthorizedError("Sesión sin organización activa");
   }

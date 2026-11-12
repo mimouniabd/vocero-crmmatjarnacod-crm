@@ -32,8 +32,8 @@ export function SettingsNav({
   const sections = settingsSections({ agenda, atribucion, instagram, messenger, tiktok });
   return (
     <nav
-      aria-label="Ajustes"
-      className="flex shrink-0 gap-4 overflow-x-auto border-b px-2 py-2 sm:w-48 sm:flex-col sm:gap-5 sm:overflow-visible sm:border-b-0 sm:border-r sm:p-3"
+      aria-label="الإعدادات"
+      className="flex shrink-0 gap-4 overflow-x-auto border-b px-2 py-2 sm:w-48 sm:flex-col sm:gap-5 sm:overflow-visible sm:border-b-0 sm:border-l sm:p-3"
     >
       {sections.map((section) => (
         <div
