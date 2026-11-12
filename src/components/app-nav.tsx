@@ -42,6 +42,7 @@ import {
 } from "@/lib/avisos-sistema";
 import { appIconHref } from "@/lib/pwa";
 import { BrandLogo } from "@/components/brand-mark";
+import { OrganizationSwitcher } from "@/components/organization-switcher";
 import {
   BUILD_COMMIT,
   UNVERIFIED_COMMIT_NOTE,
@@ -303,6 +304,7 @@ export function AppNav({
         <div className="min-w-0">
           <BrandLogo branding={branding} />
           <span className="kicker mt-2 block">{kicker}</span>
+          <div className="mt-3"><OrganizationSwitcher compact /></div>
         </div>
       </div>
 
@@ -498,6 +500,7 @@ function Riel({
                   {role === "owner" ? "Propietario" : "Equipo"} · En línea
                 </p>
               </div>
+              <OrganizationSwitcher compact />
               <div className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-[13.5px] text-text-2">
                 Tema
                 <ThemeToggle initial={apariencia} />
